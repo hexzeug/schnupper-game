@@ -5,14 +5,15 @@ import random
 class Obstacle(object):
     def __init__(self, image, speed=0):
         self.actor = Actor(image)
-        self.actor.y = 0
-        self.actor.x = 0
+        self.actor.pos = 0, 0
         self.v = [speed, 0]
         self.game = None
+    
+    def reset(self):
+        self.actor.y = self.game.ground_start - self.actor.height / 2
+        self.actor.x = random.randrange(self.game.screen_width, self.game.screen_width + 400)
 
     def set_game(self, game):
-        self.actor.y = game.ground_start - self.actor.height / 2
-        self.actor.x = random.randrange(game.screen_width, game.screen_width + 400)
         self.game = game
 
     def draw(self):

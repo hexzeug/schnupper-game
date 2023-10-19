@@ -11,10 +11,16 @@ class Game(object):
         self.ground_start = 768  # The height at which the ground starts. Everything before this is sky.
         self.obstacles = [] # The list of obstacles
         self.player = None # The player
-        self.game_over = False
+        self.game_over = True
     
     def get_running_speed(self):
         return self.player.v[0]
+    
+    def restart(self):
+        self.game_over = False
+        self.player.reset()
+        for o in self.obstacles:
+            o.reset()
 
     # --- Player ------------------------------------------------
     def add_player(self, player: Player):

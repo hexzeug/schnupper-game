@@ -22,11 +22,12 @@ BACKGROUND_COLOR = (40, 40, 40)
 obstacle = Obstacle('obstacle/fence')
 game.add_obstacle(obstacle)
 
-
 def update():
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
+    if game.game_over and keyboard.R:
+        game.restart()
 
 def draw():
     screen.fill(BACKGROUND_COLOR)
@@ -35,4 +36,5 @@ def draw():
     game.draw_obstacles()
 
 # start the application
+game.restart()
 pgzrun.go()

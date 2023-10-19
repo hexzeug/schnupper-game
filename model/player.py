@@ -5,15 +5,17 @@ class Player(object):
     def __init__(self, image):
         self.actor = Actor(image)
         self.actor.pos = 100, 0 # Set the start position
-        self.v = [5, 0]
         self.jump_height = -15  # The jump height is negative, as the top of the screen is 0 and the bottom is the height
         self.game = None
+    
+    def reset(self):
+        self.v = [5, 0]
+        self.actor.pos = self.actor.x, self.game.ground_start - self.actor.height / 2
 
     def draw(self):
         self.actor.draw()
 
     def set_game(self, game):
-        self.actor.pos = self.actor.x, game.ground_start - self.actor.height / 2
         self.game = game
 
     def update(self, space_pressed):
