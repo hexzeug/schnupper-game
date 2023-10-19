@@ -3,13 +3,13 @@ from model.game import Game
 from model.player import Player
 from model.obstacle import Obstacle
 
-# create the player
 
+player = Player('player/alien_pink_stand')
 
 # create the game instance
 game = Game()
-# add the player
 
+game.add_player(player)
 
 # define width and height of the application. pgzero needs these to be set
 WIDTH = game.screen_width
@@ -25,8 +25,7 @@ def draw():
     # drawing the background
     screen.fill(BACKGROUND_COLOR)
 
-    # draw the player
-
+    game.draw_player()
 
 # start the application
 pgzrun.go()
