@@ -26,15 +26,3 @@ class Server:
     
     def is_open(self):
         return self.s != None
-
-s = Server(31415)
-
-c = []
-
-while True:
-    sleep(1)
-    for cl in c:
-        if (cl.receive()):
-            cl.send('Echo: ' + cl.msg)
-    if (s.accept()):
-        c.append(s.client)
