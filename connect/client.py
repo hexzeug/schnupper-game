@@ -15,12 +15,14 @@ class Client:
         self.s.setblocking(True)
         self.s.send((msg + '\n').encode())
         self.s.setblocking(False)
+        print('sent: ' + msg)
     
     def receive(self):
         if not self.is_open():
             return False
         try:
             self.msg = self.s.recv(4096).decode()[:-1]
+            print('recieved: ' + self.msg)
             return True
         except BlockingIOError:
             return False
