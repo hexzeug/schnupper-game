@@ -1,32 +1,31 @@
 import socket
 
 class Client:
-    def __init__(self, socket_or_adress):
-        self.msg = None
-        if (type(socket_or_adress) == socket.socket):
-            self.s = socket_or_adress
-        else:
-            self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.s.connect(socket_or_adress)
+    def __init__(self, host):
+        self.host = host
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.s.bind(('0.0.0.0', 31415))
         self.s.setblocking(False)
     
     def send(self, msg):
         if not self.is_open(): return
         self.s.setblocking(True)
-        self.s.send((msg + '\n').encode())
+        self.s.sendto((msg + '\n').encode(), (self.host, 31415))
         self.s.setblocking(False)
-        print('sent: ' + msg)
+        print(f"sent: '{msg}'")
     
     def receive(self):
         if not self.is_open():
             return False
         try:
-            self.msg = self.s.recv(4096).decode()[:-1]
-            print('recieved: ' + self.msg)
+            pl = self.s.recvfrom(4096).decode()
+            if len(pl) == 0: raise Exception()
+            self.msg = pl[:-1]
+            print(f"received '{self.msg}'")
             return True
         except BlockingIOError:
             return False
-        except ConnectionResetError:
+        except:
             self.s = None
             return False
     
@@ -36,3 +35,4 @@ class Client:
     
     def is_open(self):
         return self.s != None
+    

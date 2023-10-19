@@ -3,8 +3,7 @@ import pgzrun
 from model.game import Game
 from model.player import Player
 from model.obstacle import Obstacle
-from connect.server import Server
-from connect.client import Client
+from connect.udp_socket import Client
 from random import randint, seed
 
 
