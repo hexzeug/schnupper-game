@@ -28,6 +28,7 @@ class Player(object):
         if space_pressed and (on_ground or falling and self.jump_count < 3):
             self.v[1] = -25 if self.jump_count == 1 else -20
             self.jump_count += 1
+            self.game.sounds.jump.play()
         
         self.actor.y += self.v[1]
         self.v[1] += self.game.gravity

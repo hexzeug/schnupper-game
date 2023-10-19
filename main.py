@@ -21,6 +21,8 @@ BACKGROUND_COLOR = (40, 40, 40)
 obstacle = Obstacle('obstacle/fence')
 game.add_obstacle(obstacle)
 
+game.sounds = sounds
+
 def update():
     game.update_player(keyboard.space)
     game.update_obstacles()
