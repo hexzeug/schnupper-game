@@ -18,6 +18,7 @@ class Opponent(object):
     def die(self):
         self.dead = True
         self.actor.image = self.img + '_hurt'
+        if self.game.player.dead: self.game.music.pause()
 
     def draw(self):
         self.actor.draw()

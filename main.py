@@ -13,6 +13,7 @@ HEIGHT = C_HEIGHT
 
 game = Game()
 game.sounds = sounds
+game.music = music
 
 player = Player('player/peppa_pig')
 game.add_player(player)
@@ -30,6 +31,7 @@ socket = UDPSocket()
 game.socket = socket
 
 def restart():
+    music.unpause()
     game.restart()
     game.sounds.respawn.play()
     player.v[0] = 5
@@ -72,5 +74,6 @@ def draw():
 
 
 # start the application
+music.play('background')
 restart()
 pgzrun.go()

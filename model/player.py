@@ -22,6 +22,7 @@ class Player(object):
     def die(self):
         self.dead = True
         self.actor.image = self.img + '_hurt'
+        if self.game.opponent is None or self.game.opponent.dead: self.game.music.pause()
 
     def draw(self):
         self.actor.draw()
