@@ -21,6 +21,7 @@ class Obstacle(object):
 
     def draw(self):
         self.actor.draw()
+        self.pos = None
     
     def update(self):
         if self.pos is None:
