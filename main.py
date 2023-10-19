@@ -27,7 +27,7 @@ def add_opponent(client):
 
 def restart():
     se = randint(0, 1 << 32 - 1)
-    if not opponent is None: opponent.client.send('s' + str(se))
+    if not server is None and not opponent is None: opponent.client.send('s' + str(se))
     seed(se)
     game.restart()
     game.sounds.respawn.play()
