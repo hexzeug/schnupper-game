@@ -21,14 +21,13 @@ class UDPSocket:
             return False
         try:
             pl = self.s.recvfrom(4096).decode()
-            if len(pl) == 0: raise Exception()
+            if len(pl) == 0: return False
             self.msg = pl[:-1]
             print(f"received '{self.msg}'")
             return True
         except BlockingIOError:
             return False
         except:
-            self.s = None
             return False
     
     def close(self):
