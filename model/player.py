@@ -5,8 +5,8 @@ class Player(object):
     def __init__(self, image):
         self.actor = Actor(image)
         self.actor.pos = 100, 0 # Set the start position
-        self.jump_height = -15  # The jump height is negative, as the top of the screen is 0 and the bottom is the height
         self.game = None
+        self.jump_count = 0
     
     def reset(self):
         self.v = [5, 0]
@@ -22,14 +22,17 @@ class Player(object):
         if self.game is None:
             raise RuntimeError('The player has not been added to the game yet.')
         
-        if space_pressed:
-            self.v[1] = self.jump_height
+        on_ground = self.actor.bottom >= self.game.ground_start
+        falling = self.v[1] > 0
+
+        if space_pressed and (on_ground or falling and self.jump_count < 3):
+            self.v[1] = -25 if self.jump_count == 1 else -20
+            self.jump_count += 1
         
         self.actor.y += self.v[1]
         self.v[1] += self.game.gravity
-        
-        lowestPoint = self.game.ground_start - self.actor.height / 2
 
-        if self.actor.y > lowestPoint:
+        if falling and on_ground:
+            self.jump_count = 0
             self.v[1] = 0
-            self.actor.y = lowestPoint
+            self.actor.bottom = self.game.ground_start
