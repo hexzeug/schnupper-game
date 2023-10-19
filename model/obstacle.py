@@ -21,7 +21,7 @@ class Obstacle(object):
         self.actor.draw()
     
     def update(self, x = None, y = None):
-        if x is None and y is None:
+        if x is None or y is None:
             if self.actor.x < -self.actor.width:  # Reset the position if the obstacle has gone of screen.
                 # The x position is set to a random value, to prevent the obstacles from sticking together.
                 self.actor.x = random.randrange(
