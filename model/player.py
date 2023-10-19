@@ -21,6 +21,9 @@ class Player(object):
     def set_game(self, game):
         self.game = game
 
+    def change_image(self, image):
+        self.actor.image = image
+
     def update(self, space_pressed):
         if self.game is None:
             raise RuntimeError('The player has not been added to the game yet.')
@@ -29,6 +32,8 @@ class Player(object):
         falling = self.v[1] > 0
 
         if space_pressed and (on_ground or falling and self.jump_count < 3):
+            self.game.clock.schedule_unique((lambda: self.change_image('player/alien_pink_duck')), 1.0)
+            self.game.clock.schedule_unique((lambda: self.change_image('player/alien_pink_duck')), 1.5)
             self.v[1] = -25 if self.jump_count == 1 else -20
             self.jump_count += 1
             self.game.sounds.jump.play()

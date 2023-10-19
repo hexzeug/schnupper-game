@@ -9,6 +9,7 @@ HEIGHT = C_HEIGHT
 
 game = Game()
 game.sounds = sounds
+game.clock =clock
 
 player = Player('player/alien_pink_stand')
 game.add_player(player)
