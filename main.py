@@ -1,3 +1,6 @@
+import connect.client
+exit()
+
 import pgzrun
 from model.game import Game
 from model.player import Player
