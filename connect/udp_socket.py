@@ -24,7 +24,7 @@ class UDPSocket:
             pl, addr = self.s.recvfrom(4096)
             if len(pl) == 0: return False
             self.msg = pl.decode()[:-1]
-            self.host = addr
+            self.host = addr[0]
             print(f"received '{self.msg}' from '{addr}'")
             return True
         except BlockingIOError:
