@@ -14,13 +14,13 @@ HEIGHT = C_HEIGHT
 game = Game()
 game.sounds = sounds
 
-player = Player('player/george_pig.png')
+player = Player('player/peppa_pig.png')
 game.add_player(player)
 
 opponent = None
 def add_opponent(client):
     global opponent
-    opponent = Player('player/alien_blue_stand')
+    opponent = Player('player/george_pig')
     opponent.client = client
     game.add_opponent(opponent)
 

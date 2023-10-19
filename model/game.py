@@ -64,14 +64,14 @@ class Game(object):
     def detect_collisions(self):
         if self.game_over: return
         for obstacle in self.obstacles:
-            player_x1 = self.player.actor.x - self.player.actor.width / 2
-            player_x2 = self.player.actor.x + self.player.actor.width / 2
+            player_x1 = self.player.actor.left + 10
+            player_x2 = self.player.actor.right - 10
             obstacle_x1 = obstacle.actor.x - obstacle.actor.width / 2
             obstacle_x2 = obstacle.actor.x + obstacle.actor.width / 2
 
             horizontal_overlap = player_x2 >= obstacle_x1 and player_x1 <= obstacle_x2
             
-            player_y = self.player.actor.y + self.player.actor.height / 2
+            player_y = self.player.actor.bottom - 10
             obstacle_y = obstacle.actor.y - obstacle.actor.height / 2
 
             vertical_overlap = player_y >= obstacle_y
