@@ -9,10 +9,12 @@ class Game(object):
         self.screen_height = 768
         self.screen_width = 1024
         self.ground_start = 768  # The height at which the ground starts. Everything before this is sky.
-        self.running_speed = 5  # The speed of all moving objects.
         self.obstacles = [] # The list of obstacles
         self.player = None # The player
         self.game_over = False
+    
+    def get_running_velocity(self):
+        return self.player.v[0]
 
     # --- Player ------------------------------------------------
     def add_player(self, player: Player):
