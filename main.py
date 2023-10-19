@@ -41,7 +41,7 @@ def update():
         if msg[0] == 'p': opponent.pos = list(map(int, msg[1:]))
         elif msg[0] == 'd': opponent.die()
         elif msg[0] == 'r': restart()
-        elif msg[0] == 'o': obstacle.pos = map(int, msg[1:])
+        elif msg[0] == 'o': obstacle.pos = list(map(int, msg[1:]))
         elif msg[0] == 'c':
             add_opponent()
             restart()
@@ -57,6 +57,7 @@ def update():
         socket.host = host
         add_opponent()
         socket.send(f"c")
+        obstacle.send = True
         restart()
 
 def draw():
