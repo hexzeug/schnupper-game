@@ -40,7 +40,7 @@ class Player(object):
             self.jump_count += 1
             self.sched_jump = False
             self.game.sounds.jump.play()
-            if not self.game.opponent is None:
+            if not self.game.opponent is None and not self is self.game.opponent:
                 self.game.opponent.client.send('j')
         
         self.actor.y += self.v[1]
