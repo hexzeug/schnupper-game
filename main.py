@@ -14,7 +14,7 @@ HEIGHT = C_HEIGHT
 game = Game()
 game.sounds = sounds
 
-player = Player('player/alien_pink_stand')
+player = Player('player/george_pig.png')
 game.add_player(player)
 
 opponent = None
