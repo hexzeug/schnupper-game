@@ -50,7 +50,7 @@ def update():
     game.detect_collisions()
     player.v[0] += 0.01
     if player.dead and (opponent is None or opponent.dead) and keyboard.R:
-        if not opponent is None: opponent.client.send('r')
+        if not opponent is None: socket.send('r')
         restart()
     if opponent is None and keyboard.C:
         host = input('connect to: ')

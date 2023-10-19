@@ -82,4 +82,4 @@ class Game(object):
             self.game_over = True
             self.player.die()
             self.sounds.death.play()
-            if not self.opponent is None: self.opponent.client.send('d')
+            if not self.opponent is None: self.socket.send('d')
