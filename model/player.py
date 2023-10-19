@@ -52,4 +52,4 @@ class Player(object):
             self.v[1] = 0
             self.actor.bottom = GROUND
         
-        self.game.socket.send(f"p {self.actor.x} {self.actor.y}")
+        self.game.socket.send(f"p {int(self.actor.x)} {int(self.actor.y)}")
