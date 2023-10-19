@@ -5,6 +5,7 @@ from model.player import Player
 from model.obstacle import Obstacle
 from connect.server import Server
 from connect.client import Client
+from random import randint, seed
 
 
 
@@ -25,6 +26,9 @@ def add_opponent(client):
     game.add_opponent(opponent)
 
 def restart():
+    se = randint(0, 1 << 32 - 1)
+    opponent.client.send('s' + se)
+    seed(se)
     game.restart()
     game.sounds.respawn.play()
     player.v[0] = 5
@@ -41,12 +45,14 @@ else:
 def update():
     if opponent is None and server.accept():
         add_opponent(server.client)
+        restart()
     if not opponent is None:
         if not opponent.client.is_open(): exit()
         if opponent.client.receive():
             if (opponent.client.msg) == 'j': opponent.jump()
             elif (opponent.client.msg) == 'd': opponent.die()
             elif (opponent.client.msg) == 'r': restart()
+            elif (opponent.client.msg[0]) == 's': seed(opponent.client.msg[1:])
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
