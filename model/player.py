@@ -40,7 +40,8 @@ class Player(object):
             self.jump_count += 1
             self.sched_jump = False
             self.game.sounds.jump.play()
-            self.game.opponent.client.send('jump')
+            if not self.game.opponent is None:
+                self.game.opponent.client.send('j')
         
         self.actor.y += self.v[1]
         self.v[1] += GRAVITY

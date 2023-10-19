@@ -20,7 +20,7 @@ game.add_player(player)
 opponent = None
 def add_opponent(client):
     global opponent
-    opponent = Player('player/alien_pink_stand')
+    opponent = Player('player/alien_blue_stand')
     opponent.client = client
     game.add_opponent(opponent)
 
