@@ -21,7 +21,6 @@ class Obstacle(object):
 
     def draw(self):
         self.actor.draw()
-        self.pos = None
     
     def update(self, dt):
         if self.pos is None:
@@ -38,3 +37,4 @@ class Obstacle(object):
         else:
             self.actor.x = self.pos[0]
             self.actor.y = self.pos[1]
+            self.pos = None

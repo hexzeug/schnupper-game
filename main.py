@@ -38,14 +38,14 @@ def update(dt):
     if not socket.is_open(): exit()
     while socket.receive():
         msg = socket.msg.split()
-        if msg is None: continue # somtimes randomly happens
-        if msg[0] == 'p': opponent.pos = list(map(int, msg[1:]))
+        if opponent is None:
+            if msg[0] == 'c':
+                add_opponent()
+                restart()
+        elif msg[0] == 'p': opponent.pos = list(map(int, msg[1:]))
         elif msg[0] == 'd': opponent.die()
         elif msg[0] == 'r': restart()
         elif msg[0] == 'o': obstacle.pos = list(map(int, msg[1:]))
-        elif msg[0] == 'c':
-            add_opponent()
-            restart()
     game.update_player(keyboard.space, dt)
     game.update_obstacles(dt)
     game.detect_collisions()
