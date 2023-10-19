@@ -2,7 +2,6 @@ import pgzrun
 from model.game import Game
 from model.player import Player
 from model.obstacle import Obstacle
-# import pygame
 
 
 player = Player('player/alien_pink_stand')
@@ -31,7 +30,6 @@ def update():
 
 def draw():
     screen.fill(BACKGROUND_COLOR)
-    # screen.surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
     game.draw_player()
     game.draw_obstacles()
 
