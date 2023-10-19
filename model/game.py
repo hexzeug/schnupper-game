@@ -6,6 +6,7 @@ class Game(object):
     def __init__(self):
         self.obstacles = []
         self.player = None
+        self.opponent = None
         self.game_over = True
         self.score = 0
         self.highscore = 0
@@ -24,10 +25,17 @@ class Game(object):
     def add_player(self, player: Player):
         self.player = player
         player.set_game(self)
+    
+    def add_opponent(self, opponent: Player):
+        self.opponent = opponent
+        opponent.set_game(self)
+        opponent.reset()
 
     def draw_player(self):
         if not self.player is None:
             self.player.draw()
+        if not self.opponent is None:
+            self.opponent.draw()
 
     def update_player(self, input_action):
         if not self.player is None and not self.game_over:
@@ -35,6 +43,8 @@ class Game(object):
             self.score += 1
             if self.highscore < self.score:
                 self.highscore += 1
+        if not self.opponent is None:
+            self.opponent.update(False)
 
 
     # --- Obstacles ------------------------------------------------

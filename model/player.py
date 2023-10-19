@@ -9,6 +9,7 @@ class Player(object):
         self.actor.pos = 100, 0 # Set the start position
         self.game = None
         self.jump_count = 0
+        self.sched_jump = False
     
     def reset(self):
         self.v = [5, 0]
@@ -21,6 +22,11 @@ class Player(object):
     def set_game(self, game):
         self.game = game
 
+    def change_image(self, image):
+        self.actor.image = image
+
+    def jump(self):
+        self.sched_jump = True
 
     def update(self, space_pressed):
         if self.game is None:
@@ -29,10 +35,12 @@ class Player(object):
         on_ground = self.actor.bottom >= GROUND
         falling = self.v[1] > 0
 
-        if space_pressed and (on_ground or falling and self.jump_count < 3):
+        if (space_pressed or self.sched_jump) and (on_ground or falling and self.jump_count < 3):
             self.v[1] = -25 if self.jump_count == 1 else -20
             self.jump_count += 1
+            self.sched_jump = False
             self.game.sounds.jump.play()
+            self.game.opponent.client.send('jump')
         
         self.actor.y += self.v[1]
         self.v[1] += GRAVITY

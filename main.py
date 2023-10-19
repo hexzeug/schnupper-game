@@ -1,8 +1,10 @@
+from model.constants import WIDTH as C_WIDTH, HEIGHT as C_HEIGHT, OPPONENT
 import pgzrun
 from model.game import Game
 from model.player import Player
 from model.obstacle import Obstacle
-from model.constants import WIDTH as C_WIDTH, HEIGHT as C_HEIGHT
+from connect.server import Server
+from connect.client import Client
 
 
 
@@ -15,11 +17,27 @@ game.sounds = sounds
 player = Player('player/alien_pink_stand')
 game.add_player(player)
 
+opponent = None
+def add_opponent(client):
+    global opponent
+    opponent = Player('player/alien_pink_stand')
+    opponent.client = client
+    game.add_opponent(opponent)
+
 obstacle = Obstacle('obstacle/fence')
 game.add_obstacle(obstacle)
 
+server = None
+if (OPPONENT != ''):
+    add_opponent(Client((OPPONENT, 31415)))
+else:
+    server = Server(31415)
 
 def update():
+    if (opponent is None and server.accept()):
+        add_opponent(server.client)
+    if (not opponent is None and opponent.client.receive()):
+        if (opponent.client.msg) == 'j': opponent.jump()
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
