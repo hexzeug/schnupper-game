@@ -1,4 +1,5 @@
 from model.player import Player
+from model.opponent import Opponent
 from model.obstacle import Obstacle
 from .constants import *
 
@@ -28,7 +29,7 @@ class Game(object):
         self.player = player
         player.set_game(self)
     
-    def add_opponent(self, opponent: Player):
+    def add_opponent(self, opponent: Opponent):
         self.opponent = opponent
         opponent.set_game(self)
         opponent.reset()
@@ -40,13 +41,13 @@ class Game(object):
             self.player.draw()
 
     def update_player(self, input_action):
-        if not self.player is None and not self.game_over:
+        if not self.player is None and (not self.player.dead or not self.player.dead):
             self.player.update(input_action)
             self.score += 1
             if self.highscore < self.score:
                 self.highscore += 1
         if not self.opponent is None:
-            self.opponent.update(False)
+            self.opponent.update()
 
 
     # --- Obstacles ------------------------------------------------

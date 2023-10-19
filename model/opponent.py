@@ -26,4 +26,4 @@ class Opponent(object):
         self.game = game
 
     def update(self):
-        self.actor.pos(*self.pos)
+        self.actor.pos = self.pos
