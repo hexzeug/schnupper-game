@@ -27,7 +27,7 @@ def add_opponent(client):
 
 def restart():
     se = randint(0, 1 << 32 - 1)
-    if not opponent is None: opponent.client.send('s' + se)
+    if not opponent is None: opponent.client.send('s' + str(se))
     seed(se)
     game.restart()
     game.sounds.respawn.play()
@@ -52,7 +52,7 @@ def update():
             if (opponent.client.msg) == 'j': opponent.jump()
             elif (opponent.client.msg) == 'd': opponent.die()
             elif (opponent.client.msg) == 'r': restart()
-            elif (opponent.client.msg[0]) == 's': seed(opponent.client.msg[1:])
+            elif (opponent.client.msg[0]) == 's': seed(int(opponent.client.msg[1:]))
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
