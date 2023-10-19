@@ -4,12 +4,13 @@ from model.player import Player
 from model.obstacle import Obstacle
 from model.constants import WIDTH as C_WIDTH, HEIGHT as C_HEIGHT
 
+
+
 WIDTH = C_WIDTH
 HEIGHT = C_HEIGHT
 
 game = Game()
 game.sounds = sounds
-game.clock =clock
 
 player = Player('player/alien_pink_stand')
 game.add_player(player)
@@ -29,10 +30,13 @@ def update():
         player.v[0] = 5
 
 def draw():
-    screen.fill((40, 40, 40))
+    screen.draw.filled_rect(Rect(0,0,1024,600), (163, 232, 254))
+    screen.draw.filled_rect(Rect(0,600,1024,768), (88, 242, 152))
     game.draw_player()
     game.draw_obstacles()
-    screen.draw.text('Score: ' + str(game.score), (100,100), color=(255,255,255), fontsize=45)
+    screen.draw.text('Score: ' + str(game.score), (100,100), color=(0, 0 , 0), fontsize=45)
+    screen.draw.text('Highscore: ' + str(game.highscore), (100,160), color=(0, 0 , 0), fontsize=45)
+    
 
 
 # start the application
