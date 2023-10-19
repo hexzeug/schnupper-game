@@ -21,10 +21,11 @@ class UDPSocket:
         if not self.is_open():
             return False
         try:
-            pl = self.s.recvfrom(4096).decode()
+            pl, addr = self.s.recvfrom(4096).decode()
             if len(pl) == 0: return False
             self.msg = pl[:-1]
-            print(f"received '{self.msg}'")
+            self.host = addr
+            print(f"received '{self.msg}' from '{addr}'")
             return True
         except BlockingIOError:
             return False

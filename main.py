@@ -42,9 +42,7 @@ def update():
         elif msg[0] == 'd': opponent.die()
         elif msg[0] == 'r': restart()
         elif msg[0] == 'o': obstacle.pos = map(int, msg[1:])
-        elif msg[0] == 'c':
-            socket.host = msg[1]
-            add_opponent()
+        elif msg[0] == 'c': add_opponent()
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
@@ -56,7 +54,7 @@ def update():
         host = input('connect to: ')
         socket.host = host
         add_opponent()
-        socket.send(f"c {socket.public}")
+        socket.send(f"c")
 
 def draw():
     screen.draw.filled_rect(Rect(0,0,1024,600), (163, 232, 254))
