@@ -12,6 +12,7 @@ class Game(object):
         self.running_speed = 5  # The speed of all moving objects.
         self.obstacles = [] # The list of obstacles
         self.player = None # The player
+        self.game_over = False
 
     # --- Player ------------------------------------------------
     def add_player(self, player: Player):
@@ -23,7 +24,7 @@ class Game(object):
             self.player.draw()
 
     def update_player(self, input_action):
-        if not self.player is None:
+        if not self.player is None and not self.game_over:
             self.player.update(input_action)   
 
     # --- Obstacles ------------------------------------------------
@@ -36,5 +37,22 @@ class Game(object):
             obstacle.draw()
 
     def update_obstacles(self):
+        if not self.game_over:
+            for obstacle in self.obstacles:
+                obstacle.update()
+
+    def detect_collisions(self):
         for obstacle in self.obstacles:
-            obstacle.update()
+            player_x1 = self.player.actor.x - self.player.actor.width / 2
+            player_x2 = self.player.actor.x + self.player.actor.width / 2
+            obstacle_x1 = obstacle.actor.x - obstacle.actor.width / 2
+            obstacle_x2 = obstacle.actor.x + obstacle.actor.width / 2
+
+            horizontal_overlap = player_x2 >= obstacle_x1 and player_x1 <= obstacle_x2
+            
+            player_y = self.player.actor.y + self.player.actor.height / 2
+            obstacle_y = obstacle.actor.y - obstacle.actor.height / 2
+
+            vertical_overlap = player_y >= obstacle_y
+        if vertical_overlap and horizontal_overlap:
+            self.game_over = True

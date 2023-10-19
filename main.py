@@ -18,14 +18,19 @@ HEIGHT = game.screen_height
 # define colors
 BACKGROUND_COLOR = (40, 40, 40)
 
+obstacle = Obstacle('obstacle/fence')
+game.add_obstacle(obstacle)
+
+
 def update():
     game.update_player(keyboard.space)
+    game.update_obstacles()
+    game.detect_collisions()
 
 def draw():
-    # drawing the background
     screen.fill(BACKGROUND_COLOR)
-
     game.draw_player()
+    game.draw_obstacles()
 
 # start the application
 pgzrun.go()
