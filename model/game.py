@@ -63,6 +63,7 @@ class Game(object):
                 obstacle.update()
 
     def detect_collisions(self):
+        if self.score < 50: return # invincibility frames
         if self.player.dead: return
         for obstacle in self.obstacles:
             player_x1 = self.player.actor.left + 10
