@@ -16,7 +16,7 @@ WIDTH = game.screen_width
 HEIGHT = game.screen_height
 
 # define colors
-BACKGROUND_COLOR = (0, 0, 0)
+BACKGROUND_COLOR = (40, 40, 40)
 
 def update():
     game.update_player(keyboard.space)
