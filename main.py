@@ -34,10 +34,12 @@ else:
     server = Server(31415)
 
 def update():
-    if (opponent is None and server.accept()):
+    if opponent is None and server.accept():
         add_opponent(server.client)
-    if (not opponent is None and opponent.client.receive()):
-        if (opponent.client.msg) == 'j': opponent.jump()
+    if not opponent is None:
+        if not opponent.client.is_open(): exit()
+        if opponent.client.receive():
+            if (opponent.client.msg) == 'j': opponent.jump()
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
