@@ -23,6 +23,7 @@ def update():
     game.detect_collisions()
     if game.game_over and keyboard.R:
         game.restart()
+        game.sounds.respawn.play()
 
 def draw():
     screen.fill((40, 40, 40))

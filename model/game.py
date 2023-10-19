@@ -14,6 +14,7 @@ class Game(object):
     def restart(self):
         self.game_over = False
         self.player.reset()
+        self.sounds.respawn.play()
         for o in self.obstacles:
             o.reset()
 
@@ -28,7 +29,8 @@ class Game(object):
 
     def update_player(self, input_action):
         if not self.player is None and not self.game_over:
-            self.player.update(input_action)   
+            self.player.update(input_action)
+
 
     # --- Obstacles ------------------------------------------------
     def add_obstacle(self, obstacle: Obstacle):
@@ -45,6 +47,7 @@ class Game(object):
                 obstacle.update()
 
     def detect_collisions(self):
+        if self.game_over: return
         for obstacle in self.obstacles:
             player_x1 = self.player.actor.x - self.player.actor.width / 2
             player_x2 = self.player.actor.x + self.player.actor.width / 2
@@ -59,3 +62,4 @@ class Game(object):
             vertical_overlap = player_y >= obstacle_y
         if vertical_overlap and horizontal_overlap:
             self.game_over = True
+            self.sounds.death.play()
