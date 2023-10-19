@@ -14,7 +14,7 @@ HEIGHT = C_HEIGHT
 game = Game()
 game.sounds = sounds
 
-player = Player('player/peppa_pig.png')
+player = Player('player/peppa_pig')
 game.add_player(player)
 
 opponent = None

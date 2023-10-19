@@ -6,7 +6,7 @@ from .constants import *
 class Player(object):
     def __init__(self, image):
         self.img = image
-        self.actor = Actor(image + '_stand')
+        self.actor = Actor(image)
         self.actor.pos = 100, 0 # Set the start position
         self.game = None
         self.jump_count = 0
@@ -15,7 +15,7 @@ class Player(object):
     
     def reset(self):
         self.dead = False
-        self.actor.image = self.img + '_stand'
+        self.actor.image = self.img
         self.v = [5, 0]
         self.actor.pos = self.actor.x, GROUND - self.actor.height / 2
         self.game.score = 0
