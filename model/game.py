@@ -8,7 +8,6 @@ class Game(object):
         self.obstacles = []
         self.player = None
         self.opponent = None
-        self.game_over = True
         self.score = 0
         self.highscore = 0
         self.socket = None
@@ -17,7 +16,6 @@ class Game(object):
         return self.player.v[0]
     
     def restart(self):
-        self.game_over = False
         self.player.reset()
         if not self.opponent is None: self.opponent.reset()
         self.sounds.respawn.play()
@@ -60,12 +58,12 @@ class Game(object):
             obstacle.draw()
 
     def update_obstacles(self):
-        if not self.game_over:
+        if not self.player.dead and (self.opponent is None or not self.opponent.dead):
             for obstacle in self.obstacles:
                 obstacle.update()
 
     def detect_collisions(self):
-        if self.game_over: return
+        if self.player.dead: return
         for obstacle in self.obstacles:
             player_x1 = self.player.actor.left + 10
             player_x2 = self.player.actor.right - 10
@@ -79,7 +77,6 @@ class Game(object):
 
             vertical_overlap = player_y >= obstacle_y
         if vertical_overlap and horizontal_overlap:
-            self.game_over = True
             self.player.die()
             self.sounds.death.play()
             if not self.opponent is None: self.socket.send('d')
