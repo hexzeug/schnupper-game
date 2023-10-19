@@ -17,6 +17,7 @@ class Game(object):
     def restart(self):
         self.game_over = False
         self.player.reset()
+        if not self.opponent is None: self.opponent.reset()
         self.sounds.respawn.play()
         for o in self.obstacles:
             o.reset()
@@ -32,10 +33,10 @@ class Game(object):
         opponent.reset()
 
     def draw_player(self):
-        if not self.player is None:
-            self.player.draw()
         if not self.opponent is None:
             self.opponent.draw()
+        if not self.player is None:
+            self.player.draw()
 
     def update_player(self, input_action):
         if not self.player is None and not self.game_over:
@@ -77,4 +78,6 @@ class Game(object):
             vertical_overlap = player_y >= obstacle_y
         if vertical_overlap and horizontal_overlap:
             self.game_over = True
+            self.player.die()
             self.sounds.death.play()
+            if not self.opponent is None: self.opponent.client.send('d')

@@ -24,6 +24,11 @@ def add_opponent(client):
     opponent.client = client
     game.add_opponent(opponent)
 
+def restart():
+    game.restart()
+    game.sounds.respawn.play()
+    player.v[0] = 5
+
 obstacle = Obstacle('obstacle/fence')
 game.add_obstacle(obstacle)
 
@@ -40,14 +45,15 @@ def update():
         if not opponent.client.is_open(): exit()
         if opponent.client.receive():
             if (opponent.client.msg) == 'j': opponent.jump()
+            elif (opponent.client.msg) == 'd': opponent.die()
+            elif (opponent.client.msg) == 'r': restart()
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
     player.v[0] += 0.01
-    if game.game_over and keyboard.R:
-        game.restart()
-        game.sounds.respawn.play()
-        player.v[0] = 5
+    if game.game_over and (opponent is None or opponent.dead) and keyboard.R:
+        if not opponent is None: opponent.client.send('r')
+        restart()
 
 def draw():
     screen.draw.filled_rect(Rect(0,0,1024,600), (163, 232, 254))

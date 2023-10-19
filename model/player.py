@@ -5,16 +5,24 @@ from .constants import *
 # The player class.
 class Player(object):
     def __init__(self, image):
-        self.actor = Actor(image)
+        self.img = image
+        self.actor = Actor(image + '_stand')
         self.actor.pos = 100, 0 # Set the start position
         self.game = None
         self.jump_count = 0
         self.sched_jump = False
+        self.dead = True
     
     def reset(self):
+        self.dead = False
+        self.actor.image = self.img + '_stand'
         self.v = [5, 0]
         self.actor.pos = self.actor.x, GROUND - self.actor.height / 2
         self.game.score = 0
+    
+    def die(self):
+        self.dead = True
+        self.actor.image = self.img + '_hurt'
 
     def draw(self):
         self.actor.draw()
