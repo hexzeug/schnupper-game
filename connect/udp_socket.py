@@ -21,9 +21,9 @@ class UDPSocket:
         if not self.is_open():
             return False
         try:
-            pl, addr = self.s.recvfrom(4096).decode()
+            pl, addr = self.s.recvfrom(4096)
             if len(pl) == 0: return False
-            self.msg = pl[:-1]
+            self.msg = pl.decode()[:-1]
             self.host = addr
             print(f"received '{self.msg}' from '{addr}'")
             return True
