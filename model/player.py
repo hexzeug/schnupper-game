@@ -21,7 +21,7 @@ class Player(object):
     
     def die(self):
         self.dead = True
-        # self.actor.image = self.img + '_hurt'
+        self.actor.image = self.img + '_hurt'
 
     def draw(self):
         self.actor.draw()
