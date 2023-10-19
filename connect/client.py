@@ -1,5 +1,4 @@
 import socket
-from time import sleep
 
 class Client:
     def __init__(self, socket_or_adress):
@@ -7,26 +6,31 @@ class Client:
         if (type(socket_or_adress) == socket.socket):
             self.s = socket_or_adress
         else:
-            self.s = socket.socket()
+            self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.s.connect(socket_or_adress)
         self.s.setblocking(False)
     
     def send(self, msg):
+        if not self.is_open(): return
         self.s.setblocking(True)
         self.s.send((msg + '\n').encode())
         self.s.setblocking(False)
     
     def receive(self):
+        if not self.is_open():
+            return False
         try:
             self.msg = self.s.recv(4096).decode()[:-1]
             return True
         except BlockingIOError:
             return False
-
-c = Client(('localhost', 31415))
-c.send('hello')
-
-while True:
-    sleep(1)
-    if (c.receive()):
-        print(c.msg)
+        except ConnectionResetError:
+            self.s = None
+            return False
+    
+    def close(self):
+        if self.is_open(): self.s.close()
+        self.s = None
+    
+    def is_open(self):
+        return self.s != None

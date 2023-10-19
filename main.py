@@ -1,4 +1,4 @@
-import connect.client
+import connect.server
 exit()
 
 import pgzrun
