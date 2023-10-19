@@ -13,7 +13,7 @@ class Game(object):
         self.player = None # The player
         self.game_over = False
     
-    def get_running_velocity(self):
+    def get_running_speed(self):
         return self.player.v[0]
 
     # --- Player ------------------------------------------------

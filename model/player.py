@@ -21,13 +21,13 @@ class Player(object):
             raise RuntimeError('The player has not been added to the game yet.')
         
         if space_pressed:
-            self.velocityY = self.jump_height
+            self.v[1] = self.jump_height
         
-        self.actor.y += self.velocityY
-        self.velocityY += self.game.gravity
+        self.actor.y += self.v[1]
+        self.v[1] += self.game.gravity
         
         lowestPoint = self.game.ground_start - self.actor.height / 2
 
         if self.actor.y > lowestPoint:
-            self.velocityY = 0
+            self.v[1] = 0
             self.actor.y = lowestPoint
