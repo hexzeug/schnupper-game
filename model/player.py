@@ -22,13 +22,16 @@ class Player(object):
     
     def die(self):
         self.dead = True
-        self.actor.image = self.img + '_hurt'
+        # self.actor.image = self.img + '_hurt'
 
     def draw(self):
         self.actor.draw()
 
     def set_game(self, game):
         self.game = game
+
+    def change_image(self, image):
+        self.actor.image = image
 
     def jump(self):
         self.sched_jump = True
