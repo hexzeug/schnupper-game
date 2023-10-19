@@ -2,9 +2,9 @@ from model.constants import WIDTH as C_WIDTH, HEIGHT as C_HEIGHT, OPPONENT
 import pgzrun
 from model.game import Game
 from model.player import Player
+from model.opponent import Opponent
 from model.obstacle import Obstacle
-from connect.udp_socket import Client
-from random import randint, seed
+from connect.udp_socket import UDPSocket
 
 
 
@@ -18,47 +18,45 @@ player = Player('player/peppa_pig')
 game.add_player(player)
 
 opponent = None
-def add_opponent(client):
+def add_opponent():
     global opponent
-    opponent = Player('player/george_pig')
-    opponent.client = client
+    opponent = Opponent('player/george_pig')
     game.add_opponent(opponent)
-
-def restart():
-    se = randint(0, 1 << 32 - 1)
-    if not server is None and not opponent is None: opponent.client.send('s' + str(se))
-    seed(se)
-    game.restart()
-    game.sounds.respawn.play()
-    player.v[0] = 5
 
 obstacle = Obstacle('obstacle/fence')
 game.add_obstacle(obstacle)
 
-server = None
-if (OPPONENT != ''):
-    add_opponent(Client((OPPONENT, 31415)))
-else:
-    server = Server(31415)
+socket = UDPSocket()
+game.socket = socket
+
+def restart():
+    game.restart()
+    game.sounds.respawn.play()
+    player.v[0] = 5
 
 def update():
-    if opponent is None and server.accept():
-        add_opponent(server.client)
-        restart()
-    if not opponent is None:
-        if not opponent.client.is_open(): exit()
-        if opponent.client.receive():
-            if (opponent.client.msg) == 'j': opponent.jump()
-            elif (opponent.client.msg) == 'd': opponent.die()
-            elif (opponent.client.msg) == 'r': restart()
-            elif (opponent.client.msg[0]) == 's': seed(int(opponent.client.msg[1:]))
+    if not socket.is_open(): exit()
+    if socket.receive():
+        msg = socket.msg.split()
+        if msg[0] == 'p': opponent.pos = map(int, msg[1:])
+        elif msg[0] == 'd': opponent.die()
+        elif msg[0] == 'r': restart()
+        elif msg[0] == 'o': obstacle.pos = map(int, msg[1:])
+        elif msg[0] == 'c':
+            socket.host = msg[1]
+            add_opponent()
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
     player.v[0] += 0.01
-    if game.game_over and (opponent is None or opponent.dead) and keyboard.R:
+    if player.dead and (opponent is None or opponent.dead) and keyboard.R:
         if not opponent is None: opponent.client.send('r')
         restart()
+    if opponent is None and keyboard.C:
+        host = input('connect to: ')
+        socket.host = host
+        add_opponent()
+        socket.send(f"c {socket.public}")
 
 def draw():
     screen.draw.filled_rect(Rect(0,0,1024,600), (163, 232, 254))
@@ -71,5 +69,5 @@ def draw():
 
 
 # start the application
-game.restart()
+restart()
 pgzrun.go()

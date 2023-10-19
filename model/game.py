@@ -10,6 +10,7 @@ class Game(object):
         self.game_over = True
         self.score = 0
         self.highscore = 0
+        self.socket = None
     
     def get_running_speed(self):
         return self.player.v[0]

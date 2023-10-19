@@ -9,6 +9,7 @@ class Opponent(object):
         self.actor = Actor(image)
         self.game = None
         self.dead = True
+        self.pos = [0, 0]
     
     def reset(self):
         self.dead = False
@@ -24,5 +25,5 @@ class Opponent(object):
     def set_game(self, game):
         self.game = game
 
-    def update(self, x, y):
-        self.actor.pos(x, y)
+    def update(self):
+        self.actor.pos(*self.pos)

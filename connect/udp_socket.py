@@ -1,14 +1,16 @@
 import socket
 
-class Client:
-    def __init__(self, host):
+class UDPSocket:
+    def __init__(self, host = None):
+        self.public = socket.gethostbyname(socket.gethostname())
         self.host = host
         self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.s.bind(('0.0.0.0', 31415))
         self.s.setblocking(False)
+        print(f"listening on {self.public}:31415")
     
     def send(self, msg):
-        if not self.is_open(): return
+        if not self.is_open() or self.host is None: return
         self.s.setblocking(True)
         self.s.sendto((msg + '\n').encode(), (self.host, 31415))
         self.s.setblocking(False)
