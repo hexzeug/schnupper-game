@@ -12,7 +12,7 @@ class Obstacle(object):
     
     def reset(self):
         self.actor.y = GROUND - self.actor.height / 2
-        self.actor.x = random.randrange(WIDTH, WIDTH + 400)
+        self.actor.x = random.randrange(WIDTH, WIDTH + 600)
 
     def set_game(self, game):
         self.game = game

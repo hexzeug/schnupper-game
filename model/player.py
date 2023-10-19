@@ -1,6 +1,7 @@
 from pgzero.actor import Actor
 from .constants import *
 
+
 # The player class.
 class Player(object):
     def __init__(self, image):
@@ -12,6 +13,7 @@ class Player(object):
     def reset(self):
         self.v = [5, 0]
         self.actor.pos = self.actor.x, GROUND - self.actor.height / 2
+        self.game.score = 0
 
     def draw(self):
         self.actor.draw()

@@ -7,6 +7,7 @@ class Game(object):
         self.obstacles = []
         self.player = None
         self.game_over = True
+        self.score = 0
     
     def get_running_speed(self):
         return self.player.v[0]
@@ -30,6 +31,7 @@ class Game(object):
     def update_player(self, input_action):
         if not self.player is None and not self.game_over:
             self.player.update(input_action)
+            self.score += 1
 
 
     # --- Obstacles ------------------------------------------------

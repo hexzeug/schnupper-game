@@ -21,14 +21,18 @@ def update():
     game.update_player(keyboard.space)
     game.update_obstacles()
     game.detect_collisions()
+    player.v[0] += 0.01
     if game.game_over and keyboard.R:
         game.restart()
         game.sounds.respawn.play()
+        player.v[0] = 5
 
 def draw():
     screen.fill((40, 40, 40))
     game.draw_player()
     game.draw_obstacles()
+    screen.draw.text('Score: ' + str(game.score), (100,100), color=(255,255,255), fontsize=45)
+
 
 # start the application
 game.restart()
