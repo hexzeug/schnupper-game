@@ -32,7 +32,7 @@ class Player(object):
     def change_image(self, image):
         self.actor.image = image
 
-    def update(self, space_pressed):
+    def update(self, space_pressed, dt):
         if self.game is None:
             raise RuntimeError('The player has not been added to the game yet.')
         
@@ -44,7 +44,7 @@ class Player(object):
             self.jump_count += 1
             self.game.sounds.jump.play()
         
-        self.actor.y += self.v[1]
+        self.actor.y += self.v[1] * FRAMERATE * dt
         self.v[1] += GRAVITY
 
         if falling and on_ground:

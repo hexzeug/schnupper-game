@@ -23,16 +23,15 @@ class Obstacle(object):
         self.actor.draw()
         self.pos = None
     
-    def update(self):
+    def update(self, dt):
         if self.pos is None:
-            if self.actor.x < -self.actor.width:  # Reset the position if the obstacle has gone of screen.
-                # The x position is set to a random value, to prevent the obstacles from sticking together.
+            if self.actor.x < -self.actor.width:
                 self.actor.x = random.randrange(
                     WIDTH + self.actor.width,
                     WIDTH + self.actor.width + 400
                 )  
-            else:  # If the obstacle is still on the screen move it to the left to create the feeling of running.
-                self.actor.x -= self.game.get_running_speed() - self.v[0]
+            else:
+                self.actor.x -= self.game.get_running_speed() - self.v[0] * FRAMERATE * dt
             if self.send:
                 self.game.socket.send(f"o {int(self.actor.x)} {int(self.actor.y)}")
         

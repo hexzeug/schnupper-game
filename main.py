@@ -34,7 +34,7 @@ def restart():
     game.sounds.respawn.play()
     player.v[0] = 5
 
-def update():
+def update(dt):
     if not socket.is_open(): exit()
     while socket.receive():
         msg = socket.msg.split()
@@ -46,8 +46,8 @@ def update():
         elif msg[0] == 'c':
             add_opponent()
             restart()
-    game.update_player(keyboard.space)
-    game.update_obstacles()
+    game.update_player(keyboard.space, dt)
+    game.update_obstacles(dt)
     game.detect_collisions()
     player.v[0] += 0.01
     if player.dead and (opponent is None or opponent.dead) and keyboard.R:
@@ -66,8 +66,8 @@ def draw():
     screen.draw.filled_rect(Rect(0,600,1024,768), (88, 242, 152))
     game.draw_player()
     game.draw_obstacles()
-    screen.draw.text('Score: ' + str(game.score), (100,100), color=(0, 0 , 0), fontsize=45)
-    screen.draw.text('Highscore: ' + str(game.highscore), (100,160), color=(0, 0 , 0), fontsize=45)
+    screen.draw.text('Score: ' + str(int(game.score)), (100,100), color=(0, 0 , 0), fontsize=45)
+    screen.draw.text('Highscore: ' + str(int(game.highscore)), (100,160), color=(0, 0 , 0), fontsize=45)
     
 
 

@@ -38,12 +38,12 @@ class Game(object):
         if not self.player is None:
             self.player.draw()
 
-    def update_player(self, input_action):
+    def update_player(self, input_action, dt):
         if not self.player is None and (not self.player.dead or not self.player.dead):
-            self.player.update(input_action)
-            self.score += 1
+            self.player.update(input_action, dt)
+            self.score += 1 * FRAMERATE * dt
             if self.highscore < self.score:
-                self.highscore += 1
+                self.highscore += 1 * FRAMERATE * dt
         if not self.opponent is None:
             self.opponent.update()
 
@@ -57,10 +57,10 @@ class Game(object):
         for obstacle in self.obstacles:
             obstacle.draw()
 
-    def update_obstacles(self):
+    def update_obstacles(self, dt):
         if not self.player.dead or not self.opponent is None and not self.opponent.dead:
             for obstacle in self.obstacles:
-                obstacle.update()
+                obstacle.update(dt)
 
     def detect_collisions(self):
         if self.score < 50: return # invincibility frames
