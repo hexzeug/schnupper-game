@@ -58,7 +58,7 @@ class Game(object):
             obstacle.draw()
 
     def update_obstacles(self):
-        if not self.player.dead and (self.opponent is None or not self.opponent.dead):
+        if not self.player.dead or not self.opponent is None and not self.opponent.dead:
             for obstacle in self.obstacles:
                 obstacle.update()
 
