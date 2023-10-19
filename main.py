@@ -36,7 +36,7 @@ def restart():
 
 def update():
     if not socket.is_open(): exit()
-    if socket.receive():
+    while socket.receive():
         msg = socket.msg.split()
         if msg[0] == 'p': opponent.pos = list(map(int, msg[1:]))
         elif msg[0] == 'd': opponent.die()
