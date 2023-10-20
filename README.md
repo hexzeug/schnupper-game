@@ -1,6 +1,6 @@
 # Peppa & Friends
 
-A _2d infinite runner platform game_ created in the context of Schnupperstudium 2023 at CAU.
+A _2d infinite runner platform game with a multiplayer_ created in the context of Schnupperstudium 2023 at CAU.
 
 ## Usage
 
@@ -12,5 +12,3 @@ A _2d infinite runner platform game_ created in the context of Schnupperstudium 
 
 - Johann Felix Gerber [@Gunnify](https://github.com/Gunnify)
 - Siemen Zielke [@hexzeug](https://github.com/hexzeug)
-
-[GitHub Repo](https://github.com/hexzeug/schnupper-game)
