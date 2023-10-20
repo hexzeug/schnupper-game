@@ -1,12 +1,16 @@
-# Schnupperstudium 2023
+# Peppa & Friends
 
-## Requirements
-Für das Projekt benötigt ihr python und pygame zero. 
-Eine Anleitung für die Installation findet ihr unter:
-https://pygame-zero.readthedocs.io/en/stable/installation.html
+A _2d infinite runner platform game_ created in the context of Schnupperstudium 2023 at CAU.
 
-Unter diesem Link ist auch die Dokumentation von Pygame Zero verfügbar. 
+## Usage
 
-Wenn ihr das Repo geclont und Pygame zero installiert habt, müsst ihr in den root Ordner navigieren und dort `python main.py` aufrufen. Damit wird das Spiel gestartet. 
+- Press <kbd>Space</kbd> to jump.
+- When you (in multiplayer both of you) died, press <kbd>R</kbd> to restart.
+- To enable multiplayer press <kbd>C</kbd> and type the IP or hostname you want to connect to into the console on one machine. The other machine will connect automatically.
 
-Wir uns für die Durchführung vom Schnupperstudium auf die IDE Thonny geeinigt. Diese kann unter https://thonny.org/ heruntergeladen werden. 
+## Authors
+
+- Johann Felix Gerber [@Gunnify](https://github.com/Gunnify)
+- Siemen Zielke [@hexzeug](https://github.com/hexzeug)
+
+[GitHub Repo](https://github.com/hexzeug/schnupper-game)
