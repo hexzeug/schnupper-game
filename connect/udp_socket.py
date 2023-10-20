@@ -14,8 +14,7 @@ class UDPSocket:
         self.s.setblocking(True)
         self.s.sendto((msg + '\n').encode(), (self.host, 31415))
         self.s.setblocking(False)
-        if msg[0] not in ['p', 'o']:
-            print(f"sent: '{msg}'")
+        # print(f"sent: '{msg}'")
     
     def receive(self):
         if not self.is_open():
@@ -25,7 +24,7 @@ class UDPSocket:
             if len(pl) == 0: return False
             self.msg = pl.decode()[:-1]
             self.host = addr[0]
-            if self.msg[0] not in ['p', 'o']: print(f"received '{self.msg}' from '{addr}'")
+            # print(f"received '{self.msg}' from '{addr}'")
             return True
         except BlockingIOError:
             return False
